@@ -1,23 +1,32 @@
 #include "token.h"
 
-// Output stream operator implementation
-std::ostream &operator<<(std::ostream &os, const TokenType &type)
+std::string tokenTypeToString(TokenType type)
 {
   switch (type)
   {
+  case TokenType::Keyword:
+    return "Keyword";
   case TokenType::Integer:
-    return os << "Integer";
+    return "Integer";
+  case TokenType::Real:
+    return "Real";
   case TokenType::Identifier:
-    return os << "Identifier";
+    return "Identifier";
   case TokenType::Operator:
-    return os << "Operator";
+    return "Operator";
   case TokenType::Separator:
-    return os << "Separator";
+    return "Separator";
   case TokenType::EndOfFile:
-    return os << "EndOfFile";
+    return "EndOfFile";
   case TokenType::Unknown:
-    return os << "Unknown";
+    return "Unknown";
   default:
-    return os << "UnknownTokenType";
+    return "UnknownTokenType";
   }
+}
+
+std::ostream &operator<<(std::ostream &out, const Token &token)
+{
+  out << tokenTypeToString(token.type) << " " << token.lexeme;
+  return out;
 }

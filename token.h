@@ -1,13 +1,14 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-#include <string>
 #include <iostream>
+#include <string>
 
-// Token types
 enum class TokenType
 {
+  Keyword,
   Integer,
+  Real,
   Identifier,
   Operator,
   Separator,
@@ -15,13 +16,16 @@ enum class TokenType
   Unknown
 };
 
+std::string tokenTypeToString(TokenType type);
+
 struct Token
 {
   TokenType type;
   std::string lexeme;
 
-  Token(TokenType t, std::string lex) : type(t), lexeme(std::move(lex)) {}
+  Token(TokenType type, std::string lexeme) : type(type), lexeme(std::move(lexeme)) {}
 };
-std::ostream &operator<<(std::ostream &os, const TokenType &type);
+
+std::ostream &operator<<(std::ostream &out, const Token &token);
 
 #endif // TOKEN_H

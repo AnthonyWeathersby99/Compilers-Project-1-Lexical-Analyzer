@@ -2,19 +2,21 @@
 #define LEXER_H
 
 #include "token.h"
-#include <string>
 #include <fstream>
-#include <vector>
+#include <string>
 
 class Lexer
 {
 public:
   explicit Lexer(const std::string &filename);
+  ~Lexer();
   Token getNextToken();
 
 private:
   std::ifstream file;
-  // You can add more private methods or member variables as needed.
+  char peekChar();
+  char getChar();
+  void ungetChar();
 };
 
 #endif // LEXER_H
