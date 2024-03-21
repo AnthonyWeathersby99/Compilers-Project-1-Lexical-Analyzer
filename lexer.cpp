@@ -63,25 +63,21 @@ Token Lexer::getNextToken()
     }
     return Token(TokenType::Identifier, lexeme);
   }
-
-  // Handle numeric literals (integers and reals)
+  // Handle numeric literals
   if (std::isdigit(ch))
   {
     bool hasDecimal = false;
     while (std::isdigit(peekChar()) || (!hasDecimal && peekChar() == '.'))
     {
       if (peekChar() == '.')
-      {
-        hasDecimal = true; // Record that we've seen a decimal point
-      }
+        hasDecimal = true;
       lexeme += getChar();
     }
-    // Since we're treating all numbers as Reals, no need for a condition here
-    return Token(TokenType::Real, lexeme);
+    return Token(hasDecimal ? TokenType::Real : TokenType::Integer, lexeme);
   }
 
   // Handle operators
-  if (ch == '<' || ch == '>' || ch == '=' || ch == '+' /* add other operators */)
+  if (ch == '<' || ch == '>' || ch == '=' || ch == '+'  || ch == '-' || ch == '*' || ch == '/')
   {
     return Token(TokenType::Operator, lexeme);
   }
